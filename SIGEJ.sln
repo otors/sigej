@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{95685790-80FD-4C42-9A45-477957802D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIGEJ.WebApi", "src\SIGEJ.WebApi\SIGEJ.WebApi.csproj", "{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A} = {95685790-80FD-4C42-9A45-477957802D77}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC7C4B5E-00F9-416E-8F33-87DC1C93EF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
