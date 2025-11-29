@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class CategoriaMaterialDAO(Database database) : DataAccessObjectBase(database)
+public sealed class CategoriaMaterialDAO(Database database, ILogger<CategoriaMaterialDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(CategoriaMaterial categoria, CancellationToken cancellationToken = default)
     {

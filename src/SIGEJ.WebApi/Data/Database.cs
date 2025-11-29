@@ -15,7 +15,25 @@ public sealed class Database
 
     public async Task MigrateAsync()
     {
-        // TODO: Migrations automation
-        // execute every sql script in <cwd>/Migrations
+        var migrationsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Migrations");
+
+        if (!Directory.Exists(migrationsFolder))
+            throw new DirectoryNotFoundException($"Pasta de migrations não encontrada: {migrationsFolder}");
+
+        // Pega todos os arquivos .sql, ordenados por nome
+        var sqlFiles = Directory.GetFiles(migrationsFolder, "*.sql").OrderBy(f => f);
+
+        await using var conn = GetConnection();
+        await conn.OpenAsync();
+
+        foreach (var file in sqlFiles)
+        {
+            var sql = await File.ReadAllTextAsync(file);
+
+            await using var cmd = new NpgsqlCommand(sql, conn);
+            await cmd.ExecuteNonQueryAsync();
+
+            Console.WriteLine($"Executado: {Path.GetFileName(file)}");
+        }
     }
 }

@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class CorDAO(Database database) : DataAccessObjectBase(database)
+public sealed class CorDAO(Database database, ILogger<CorDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Cor cor, CancellationToken cancellationToken = default)
     {

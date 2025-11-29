@@ -5,7 +5,7 @@ using SIGEJ.WebApi.Data;
 
 namespace SIGEJ.WebApi.Abstractions;
 
-public abstract class DataAccessObjectBase(Database database) : IDataAccessObject
+public abstract class DataAccessObjectBase(Database database, ILogger<DataAccessObjectBase> logger) : IDataAccessObject
 {
     private async Task<NpgsqlConnection> OpenConnection(CancellationToken cancellationToken = default)
     {
@@ -21,6 +21,8 @@ public abstract class DataAccessObjectBase(Database database) : IDataAccessObjec
         await using var conn = await OpenConnection(cancellationToken);
         await using var cmd = new NpgsqlCommand(sql, conn);
         AddParams(cmd, parameters);
+        
+        LogSql(cmd.CommandText, parameters);
 
         await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
 
@@ -37,6 +39,8 @@ public abstract class DataAccessObjectBase(Database database) : IDataAccessObjec
         await using var conn = await OpenConnection(cancellationToken);
         await using var cmd = new NpgsqlCommand(sql, conn);
         AddParams(cmd, parameters);
+        
+        LogSql(cmd.CommandText, parameters);
 
         await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
         return await reader.ReadAsync(cancellationToken) ? await mapper(reader, cancellationToken) : default;
@@ -48,6 +52,8 @@ public abstract class DataAccessObjectBase(Database database) : IDataAccessObjec
         await using var conn = await OpenConnection(cancellationToken);
         await using var cmd = new NpgsqlCommand(sql, conn);
         AddParams(cmd, parameters);
+        
+        LogSql(cmd.CommandText, parameters);
 
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
@@ -58,6 +64,8 @@ public abstract class DataAccessObjectBase(Database database) : IDataAccessObjec
         await using var conn = await OpenConnection(cancellationToken);
         await using var cmd = new NpgsqlCommand(sql, conn);
         AddParams(cmd, parameters);
+        
+        LogSql(cmd.CommandText, parameters);
 
         var result = await cmd.ExecuteScalarAsync(cancellationToken);
         return Convert.ToInt32(result);
@@ -67,6 +75,18 @@ public abstract class DataAccessObjectBase(Database database) : IDataAccessObjec
     {
         if (parameters == null) return;
         for (var i = 0; i < parameters.Count; i++)
-            cmd.Parameters.AddWithValue($"p{i + 1}", parameters[i] ?? DBNull.Value);
+            cmd.Parameters.AddWithValue(parameters[i] ?? DBNull.Value);
+    }
+    
+    private void LogSql(string sql, IReadOnlyList<object?>? parameters)
+    {
+        if (parameters == null || parameters.Count == 0)
+        {
+            logger.LogInformation("Executando SQL: {Sql}", sql);
+        }
+        else
+        {
+            logger.LogInformation("Executando SQL: {Sql} | Parâmetros: {Params}", sql, parameters);
+        }
     }
 }

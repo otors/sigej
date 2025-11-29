@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class AreaCampusDAO(Database database) : DataAccessObjectBase(database)
+public sealed class AreaCampusDAO(Database database, ILogger<AreaCampusDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(AreaCampus area, CancellationToken cancellationToken = default)
     {

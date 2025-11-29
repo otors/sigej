@@ -9,7 +9,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class AndamentoOrdemServicoDAO(Database database) : DataAccessObjectBase(database)
+public sealed class AndamentoOrdemServicoDAO(Database database, ILogger<AndamentoOrdemServicoDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(AndamentoOrdemServico aos, CancellationToken cancellationToken = default)
     {
