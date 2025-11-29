@@ -65,6 +65,12 @@ public sealed class ProdutoVariacaoDAO(Database database, ILogger<ProdutoVariaca
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM produto_variacao WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<ProdutoVariacao> MapProdutoVariacaoAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

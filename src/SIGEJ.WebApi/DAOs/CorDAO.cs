@@ -36,6 +36,11 @@ public sealed class CorDAO(Database database, ILogger<CorDAO> logger) : DataAcce
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM cor WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Cor> MapCorAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

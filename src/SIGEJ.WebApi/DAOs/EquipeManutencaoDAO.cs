@@ -36,6 +36,12 @@ public sealed class EquipeManutencaoDAO(Database database, ILogger<EquipeManuten
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM equipe_manutencao WHERE id = $1", [id], cancellationToken);
+    }
+    
 
     private static async Task<EquipeManutencao> MapEquipeManutencaoAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

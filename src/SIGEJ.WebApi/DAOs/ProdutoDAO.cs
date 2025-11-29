@@ -39,6 +39,11 @@ public sealed class ProdutoDAO(Database database, ILogger<ProdutoDAO> logger) : 
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM produto WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Produto> MapProdutoAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

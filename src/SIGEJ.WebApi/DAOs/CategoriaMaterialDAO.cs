@@ -35,6 +35,11 @@ public sealed class CategoriaMaterialDAO(Database database, ILogger<CategoriaMat
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM categoria_material WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<CategoriaMaterial> MapCategoriaMaterialAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

@@ -50,6 +50,11 @@ public sealed class FuncionarioDAO(Database database, ILogger<FuncionarioDAO> lo
             cancellationToken);
     }
     
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM funcionario WHERE id = $1", [id], cancellationToken);
+    }
+    
     private static async Task<Funcionario> MapFuncionarioAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default) =>
         new()

@@ -61,6 +61,11 @@ public sealed class MovimentoEstoqueDAO(Database database, ILogger<MovimentoEsto
             cancellationToken
         );
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM movimento_estoque WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<MovimentoEstoqueDTO> MapMovimentoEstoqueAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default)

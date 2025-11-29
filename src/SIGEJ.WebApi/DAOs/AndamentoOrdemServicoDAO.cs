@@ -48,6 +48,11 @@ public sealed class AndamentoOrdemServicoDAO(Database database, ILogger<Andament
         )).ToList();
     }
 
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM andamento_ordem_servico WHERE id = $1", [id], cancellationToken);
+    }
+
     private static async Task<TimelineDTO> MapTimelineAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default) =>
         new(
             await r.GetNullableFieldValueAsync<DateTime>(0, cancellationToken),

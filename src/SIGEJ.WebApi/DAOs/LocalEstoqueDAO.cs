@@ -35,6 +35,11 @@ public class LocalEstoqueDAO(Database database, ILogger<LocalEstoqueDAO> logger)
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM local_estoque WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<LocalEstoque> MapLocalEstoqueAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

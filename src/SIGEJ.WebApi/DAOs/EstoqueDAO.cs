@@ -75,6 +75,14 @@ public sealed class EstoqueDAO(Database database, ILogger<EstoqueDAO> logger) : 
         )).ToList();
     }
 
+    public async Task DeleteAsync(int produtoVariacaoId, int localId, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync(
+            "DELETE FROM estoque WHERE produto_variacao_id = $1 AND local_estoque_id = $2",
+            [produtoVariacaoId, localId], cancellationToken);
+    }
+
+
     private static Task<Estoque> MapEstoqueAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default)
     {

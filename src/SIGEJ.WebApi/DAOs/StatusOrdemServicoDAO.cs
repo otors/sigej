@@ -35,6 +35,11 @@ public sealed class StatusOrdemServicoDAO(Database database, ILogger<StatusOrdem
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM status_ordem_servico WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<StatusOrdemServico> MapStatusOrdemServicoAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default)

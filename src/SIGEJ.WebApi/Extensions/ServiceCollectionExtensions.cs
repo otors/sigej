@@ -6,17 +6,6 @@ namespace SIGEJ.WebApi.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
-    {
-        var types = Assembly.GetExecutingAssembly().GetTypes().Where(t =>
-            typeof(IApplicationService).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract).ToList();
-
-        foreach (var type in types)
-            services.AddSingleton(type);
-
-        return services;
-    }
-
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services)
     {
         var types = Assembly.GetExecutingAssembly().GetTypes().Where(t =>

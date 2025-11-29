@@ -5,7 +5,8 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class TipoFuncionarioDAO(Database database, ILogger<TipoFuncionarioDAO> logger) : DataAccessObjectBase(database, logger)
+public sealed class TipoFuncionarioDAO(Database database, ILogger<TipoFuncionarioDAO> logger)
+    : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(TipoFuncionario tipoFuncionario, CancellationToken cancellationToken = default)
     {
@@ -19,12 +20,17 @@ public sealed class TipoFuncionarioDAO(Database database, ILogger<TipoFuncionari
         return await FetchOneAsync("SELECT id, descricao FROM tipo_funcionario WHERE id = $1", MapTipoFuncionarioAsync,
             [tipoFuncionarioId], cancellationToken);
     }
-    
-    public async Task<List<TipoFuncionario>> ListAllAsync(int tipoFuncionarioId,
+
+    public async Task<List<TipoFuncionario>> ListAllAsync(
         CancellationToken cancellationToken = default)
     {
         return (await FetchAllAsync("SELECT id, descricao FROM tipo_funcionario ORDER BY id", MapTipoFuncionarioAsync,
             cancellationToken: cancellationToken)).ToList();
+    }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM tipo_funcionario WHERE id = $1", [id], cancellationToken);
     }
 
     private static Task<TipoFuncionario> MapTipoFuncionarioAsync(NpgsqlDataReader r,

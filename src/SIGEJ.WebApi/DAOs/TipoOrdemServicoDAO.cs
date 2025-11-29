@@ -35,6 +35,11 @@ public sealed class TipoOrdemServicoDAO(Database database, ILogger<TipoOrdemServ
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM tipo_ordem_servico WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<TipoOrdemServico> MapTipoOrdemServicoAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

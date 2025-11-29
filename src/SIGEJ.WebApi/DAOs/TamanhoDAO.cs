@@ -35,6 +35,11 @@ public sealed class TamanhoDAO(Database database, ILogger<TamanhoDAO> logger) : 
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM tamanho WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Tamanho> MapTamanhoAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

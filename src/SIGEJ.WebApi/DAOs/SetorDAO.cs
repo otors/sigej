@@ -27,6 +27,11 @@ public sealed class SetorDAO(Database database, ILogger<SetorDAO> logger) : Data
         return (await FetchAllAsync("SELECT id, nome, sigla FROM setor ORDER BY nome", MapSetorAsync,
             cancellationToken: cancellationToken)).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM setor WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Setor> MapSetorAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

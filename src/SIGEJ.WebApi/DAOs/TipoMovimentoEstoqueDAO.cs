@@ -35,6 +35,11 @@ public sealed class TipoMovimentoEstoqueDAO(Database database, ILogger<TipoMovim
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM tipo_movimento_estoque WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<TipoMovimentoEstoque> MapTipoMovimentoEstoqueAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default)

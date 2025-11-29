@@ -39,6 +39,11 @@ public sealed class AreaCampusDAO(Database database, ILogger<AreaCampusDAO> logg
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM area_campus WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<AreaCampus> MapAreaCampusAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

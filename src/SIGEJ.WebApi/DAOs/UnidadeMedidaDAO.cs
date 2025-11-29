@@ -35,6 +35,11 @@ public sealed class UnidadeMedidaDAO(Database database, ILogger<UnidadeMedidaDAO
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM unidade_medida WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<UnidadeMedida> MapUnidadeMedidaAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

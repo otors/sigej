@@ -35,6 +35,11 @@ public class MarcaDAO(Database database, ILogger<MarcaDAO> logger) : DataAccessO
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM marca WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Marca> MapMarcaAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

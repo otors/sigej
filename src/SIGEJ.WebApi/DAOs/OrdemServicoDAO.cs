@@ -82,6 +82,12 @@ public class OrdemServicoDAO(Database database, ILogger<OrdemServicoDAO> logger)
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM ordem_servico WHERE id = $1", [id], cancellationToken);
+    }
+    
 
     private static async Task<OrdemServico> MapOrdemServicoAsync(NpgsqlDataReader r,
         CancellationToken cancellationToken = default)

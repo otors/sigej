@@ -26,6 +26,11 @@ public sealed class FornecedorDAO(Database database, ILogger<FornecedorDAO> logg
             cancellationToken: cancellationToken
         )).ToList();
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM fornecedor WHERE id = $1", [id], cancellationToken);
+    }
 
     private static async Task<Fornecedor> MapFornecedorAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {

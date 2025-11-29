@@ -62,6 +62,11 @@ public sealed class PessoaDAO(Database database, ILogger<PessoaDAO> logger) : Da
             ], cancellationToken
         );
     }
+    
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        await ExecuteAsync("DELETE FROM pessoa WHERE id = $1", [id], cancellationToken);
+    }
 
 
     private static async Task<Pessoa> MapPessoaAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
