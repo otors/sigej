@@ -1,6 +1,6 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class TipoFuncionario
+public sealed class TipoFuncionario
 {
     public int Id { get; set; }
     public string Descricao { get; set; } = null!;

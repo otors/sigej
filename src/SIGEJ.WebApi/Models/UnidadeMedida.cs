@@ -1,8 +1,8 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class UnidadeMedida
+public sealed class UnidadeMedida
 {
     public int Id { get; set; }
     public string Sigla { get; set; } = null!;
-    public string Descricao { get; set; } = string.Empty;
+    public string? Descricao { get; set; }
 }

@@ -1,8 +1,8 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class Fornecedor
+public sealed class Fornecedor
 {
     public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public string Cnpj { get; set; } = string.Empty;
+    public string? Nome { get; set; }
+    public string? Cnpj { get; set; }
 }

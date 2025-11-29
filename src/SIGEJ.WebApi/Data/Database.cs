@@ -1,14 +1,14 @@
 using Npgsql;
 
-namespace SIGEJ.Api.Data;
+namespace SIGEJ.WebApi.Data;
 
 public sealed class Database
 {
     private readonly string _connectionString;
 
-    public Database(IConfiguration configuration)
+    public Database(string connectionString)
     {
-        _connectionString = configuration.GetConnectionString("Database")!;
+        _connectionString = connectionString;
     }
 
     public NpgsqlConnection GetConnection() => new(_connectionString);

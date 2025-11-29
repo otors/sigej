@@ -1,7 +1,7 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class Cor
+public sealed class Cor
 {
     public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
+    public string? Nome { get; set; }
 }

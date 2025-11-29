@@ -1,7 +1,7 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class TipoAreaCampus
+public sealed class TipoAreaCampus
 {
     public int Id { get; set; }
-    public string Descricao { get; set; } = null!;
+    public string? Descricao { get; set; }
 }

@@ -1,6 +1,6 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class CategoriaMaterial
+public sealed class CategoriaMaterial
 {
     public int Id { get; set; }
     public string Nome { get; set; } = null!;

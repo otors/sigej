@@ -1,9 +1,8 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class LocalEstoque
+public sealed class LocalEstoque
 {
     public int Id { get; set; }
-    public string Descricao { get; set; } = string.Empty;
-    public int ResponsavelId { get; set; }
-    public Funcionario? Responsavel { get; set; }
+    public string? Descricao { get; set; }
+    public int? ResponsavelId { get; set; }
 }

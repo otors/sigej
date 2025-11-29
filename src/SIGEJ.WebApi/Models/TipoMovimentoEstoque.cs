@@ -1,8 +1,8 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class TipoMovimentoEstoque
+public sealed class TipoMovimentoEstoque
 {
     public int Id { get; set; }
-    public string Descricao { get; set; } = string.Empty;
-    public char Sinal { get; set; }
+    public string? Descricao { get; set; }
+    public char? Sinal { get; set; }
 }

@@ -1,8 +1,8 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class Setor
+public sealed class Setor
 {
     public int Id { get; set; }
     public string Nome { get; set; } = null!;
-    public string Cpf { get; set; } = string.Empty;
+    public string? Sigla { get; set; }
 }

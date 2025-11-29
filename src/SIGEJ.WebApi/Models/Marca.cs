@@ -1,7 +1,7 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class Marca
+public sealed class Marca
 {
     public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
+    public string? Nome { get; set; }
 }

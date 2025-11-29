@@ -1,4 +1,4 @@
-namespace SIGEJ.Api.Data;
+namespace SIGEJ.WebApi.Data;
 
 public sealed class Seeder(Database db)
 {

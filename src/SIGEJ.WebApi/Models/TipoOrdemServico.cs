@@ -1,7 +1,7 @@
-namespace SIGEJ.Api.Models;
+namespace SIGEJ.WebApi.Models;
 
-public class TipoOrdemServico
+public sealed class TipoOrdemServico
 {
     public int Id { get; set; }
-    public string Descricao { get; set; } = string.Empty;
+    public string? Descricao { get; set; }
 }
