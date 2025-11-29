@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services)
     {
         var types = Assembly.GetExecutingAssembly().GetTypes().Where(t =>
-            typeof(IDataAccessObject).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract).ToList();
+            typeof(DataAccessObjectBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract).ToList();
 
         foreach (var type in types)
             services.AddSingleton(type);
@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var cs = configuration.GetConnectionString("Database")!;
-        services.AddSingleton(new Database(cs));
+        services.AddSingleton(sp => new Database(cs, sp.GetRequiredService<ILogger<Database>>()));
         services.AddSingleton<Seeder>();
         return services;
     }

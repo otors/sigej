@@ -41,13 +41,13 @@ public sealed class CategoriaMaterialDAO(Database database, ILogger<CategoriaMat
         await ExecuteAsync("DELETE FROM categoria_material WHERE id = $1", [id], cancellationToken);
     }
 
-    private static async Task<CategoriaMaterial> MapCategoriaMaterialAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
+    private static Task<CategoriaMaterial> MapCategoriaMaterialAsync(NpgsqlDataReader r, CancellationToken cancellationToken = default)
     {
-        return new CategoriaMaterial
+        return Task.FromResult(new CategoriaMaterial
         {
             Id = r.GetInt32(0),
             Nome = r.GetString(1),
-        };
+        });
     }
 
 }

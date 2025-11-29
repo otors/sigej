@@ -7,7 +7,8 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class MovimentoEstoqueDAO(Database database, ILogger<MovimentoEstoqueDAO> logger) : DataAccessObjectBase(database, logger)
+public sealed class MovimentoEstoqueDAO(Database database, ILogger<MovimentoEstoqueDAO> logger)
+    : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(MovimentoEstoque movimento, CancellationToken cancellationToken = default)
     {
@@ -61,7 +62,35 @@ public sealed class MovimentoEstoqueDAO(Database database, ILogger<MovimentoEsto
             cancellationToken
         );
     }
-    
+
+    public async Task<List<ConsumoEquipeDTO>> ListConsumoEquipeAsync(DateOnly dataInicio, DateOnly dataFim,
+        CancellationToken cancellationToken = default)
+    {
+        return (await FetchAllAsync(
+            """
+            SELECT eq.nome    AS equipe,
+                   p.descricao AS produto,
+                   SUM(
+                     CASE WHEN LOWER(tm.sinal) = '-' THEN -me.quantidade
+                          ELSE me.quantidade END
+                   ) AS total_consumo
+            FROM movimento_estoque me
+            JOIN tipo_movimento_estoque tm ON me.tipo_movimento_id = tm.id
+            JOIN produto_variacao pv ON me.produto_variacao_id = pv.id
+            JOIN produto p ON pv.produto_id = p.id
+            LEFT JOIN ordem_servico os ON me.ordem_servico_id = os.id
+            LEFT JOIN equipe_manutencao eq ON os.equipe_id = eq.id
+            WHERE me.data_hora BETWEEN $1 AND $2
+            GROUP BY eq.nome, p.descricao
+            ORDER BY eq.nome, p.descricao;
+            """,
+            MapConsumoEquipeDTOAsync,
+            [dataInicio, dataFim],
+            cancellationToken
+        )).ToList();
+    }
+
+
     public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         await ExecuteAsync("DELETE FROM movimento_estoque WHERE id = $1", [id], cancellationToken);
@@ -81,5 +110,14 @@ public sealed class MovimentoEstoqueDAO(Database database, ILogger<MovimentoEsto
             await r.GetNullableFieldValueAsync<int>(7, cancellationToken),
             await r.GetNullableFieldValueAsync<int>(8, cancellationToken),
             r.GetString(9));
+    }
+
+    private static Task<ConsumoEquipeDTO> MapConsumoEquipeDTOAsync(NpgsqlDataReader r,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(new ConsumoEquipeDTO(
+            r.GetString(0),
+            r.GetString(1),
+            r.GetDecimal(2)));
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SIGEJ.WebApi.Models;
 using SIGEJ.WebApi.DAOs;
+using SIGEJ.WebApi.DTOs;
 using SIGEJ.WebApi.DTOs.Requests;
 
 namespace SIGEJ.WebApi.Controllers;
@@ -17,7 +18,23 @@ public sealed class OrdemServicoController(OrdemServicoDAO dao) : ControllerBase
         var result = await dao.ListAllAsync(cancellationToken);
         return result;
     }
-
+    
+    [HttpGet("abertas")]
+    public async Task<ActionResult<IEnumerable<OrdemServicoDTO>>> GetOpenOrderedByPriorityAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var result = await dao.ListOpenByPriorityAsync(cancellationToken);
+        return result;
+    }
+    
+    [HttpGet("concluidas")]
+    public async Task<ActionResult<IEnumerable<OrdemServicoConcluidaDTO>>> GetClosedAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var result = await dao.ListClosedAsync(cancellationToken);
+        return result;
+    }
+    
     [HttpGet("{id:int}")]
     public async Task<ActionResult<OrdemServico>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {

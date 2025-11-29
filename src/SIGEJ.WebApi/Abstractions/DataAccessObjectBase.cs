@@ -5,7 +5,7 @@ using SIGEJ.WebApi.Data;
 
 namespace SIGEJ.WebApi.Abstractions;
 
-public abstract class DataAccessObjectBase(Database database, ILogger<DataAccessObjectBase> logger) : IDataAccessObject
+public abstract class DataAccessObjectBase(Database database, ILogger<DataAccessObjectBase> logger)
 {
     private async Task<NpgsqlConnection> OpenConnection(CancellationToken cancellationToken = default)
     {

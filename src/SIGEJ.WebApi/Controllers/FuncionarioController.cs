@@ -6,7 +6,7 @@ namespace SIGEJ.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Tags("Funcionario")]
+[Tags("Funcionário")]
 public sealed class FuncionarioController(FuncionarioDAO dao) : ControllerBase
 {
     [HttpGet]

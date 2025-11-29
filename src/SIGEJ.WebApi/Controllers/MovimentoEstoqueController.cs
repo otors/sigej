@@ -6,8 +6,6 @@ using SIGEJ.WebApi.DTOs.Requests;
 
 namespace SIGEJ.WebApi.Controllers;
 
-
-
 [ApiController]
 [Route("api/[controller]")]
 [Tags("Estoque")]
@@ -18,6 +16,13 @@ public sealed class MovimentoEstoqueController(MovimentoEstoqueDAO dao) : Contro
     public async Task<ActionResult<IEnumerable<MovimentoEstoqueDTO>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var result = await dao.ListAllAsync(cancellationToken);
+        return result;
+    }
+    
+    [HttpGet("consumo-equipe")]
+    public async Task<ActionResult<IEnumerable<ConsumoEquipeDTO>>> GetConsumoPorEquipeAsync([FromQuery] DateOnly dataInicio, [FromQuery] DateOnly dataFim, CancellationToken cancellationToken = default)
+    {
+        var result = await dao.ListConsumoEquipeAsync(dataInicio, dataFim, cancellationToken);
         return result;
     }
     

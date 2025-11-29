@@ -5,10 +5,12 @@ namespace SIGEJ.WebApi.Data;
 public sealed class Database
 {
     private readonly string _connectionString;
+    private readonly ILogger<Database> _logger;
 
-    public Database(string connectionString)
+    public Database(string connectionString, ILogger<Database> logger)
     {
         _connectionString = connectionString;
+        _logger = logger;
     }
 
     public NpgsqlConnection GetConnection() => new(_connectionString);
@@ -32,8 +34,8 @@ public sealed class Database
 
             await using var cmd = new NpgsqlCommand(sql, conn);
             await cmd.ExecuteNonQueryAsync();
-
-            Console.WriteLine($"Executado: {Path.GetFileName(file)}");
+            
+            _logger.LogInformation("Migrated {File}", Path.GetFileName(file));
         }
     }
 }

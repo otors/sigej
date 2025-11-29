@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Logging.AddConsole(); // opcional, se quiser log no console
+builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 builder.Services
@@ -20,13 +20,19 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-await app.ApplyMigrationsAndSeedAsync();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Apply migrations and seed for testing
+    await app.ApplyMigrationsAndSeedAsync();
     app.UseSwaggerWithUI();
     app.UseScalar();
+    
+}
+else
+{
+    // Apply migrations only
+    await app.ApplyMigrationsAsync();
 }
 
 app.UseHttpsRedirection();
