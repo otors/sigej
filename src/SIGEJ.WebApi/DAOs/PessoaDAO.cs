@@ -6,16 +6,8 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class PessoaDAO(Database database) : DataAccessObjectBase(database)
+public sealed class PessoaDAO(Database database, ILogger<PessoaDAO> logger) : DataAccessObjectBase(database, logger)
 {
-    // public int Id { get; set; }
-    // public string Nome { get; set; } = null!;
-    // public string Cpf { get; set; } = null!;
-    // public string MatriculaSiape { get; set; } = null!;
-    // public string Email { get; set; } = string.Empty;
-    // public string Telefone { get; set; } = string.Empty;
-    // public bool Ativo { get; set; } = true;
-
     public async Task<int> InsertAsync(Pessoa pessoa, CancellationToken cancellationToken = default)
     {
         return await ExecuteReturningIdAsync(

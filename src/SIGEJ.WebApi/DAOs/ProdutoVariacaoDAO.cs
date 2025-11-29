@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class ProdutoVariacaoDAO(Database database) : DataAccessObjectBase(database)
+public sealed class ProdutoVariacaoDAO(Database database, ILogger<ProdutoVariacaoDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(ProdutoVariacao variacao, CancellationToken cancellationToken = default)
     {

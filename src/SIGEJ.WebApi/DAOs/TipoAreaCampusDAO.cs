@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class TipoAreaCampusDAO(Database database) : DataAccessObjectBase(database)
+public sealed class TipoAreaCampusDAO(Database database, ILogger<TipoAreaCampusDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(TipoAreaCampus tipo, CancellationToken cancellationToken = default)
     {

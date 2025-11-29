@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class EstoqueDAO(Database database) : DataAccessObjectBase(database)
+public sealed class EstoqueDAO(Database database, ILogger<EstoqueDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task UpsertAsync(Estoque estoque, CancellationToken cancellationToken = default)
     {

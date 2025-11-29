@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class MarcaDAO(Database database) : DataAccessObjectBase(database)
+public class MarcaDAO(Database database, ILogger<MarcaDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Marca marca, CancellationToken cancellationToken = default)
     {

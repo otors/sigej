@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class FornecedorDAO(Database database) : DataAccessObjectBase(database)
+public sealed class FornecedorDAO(Database database, ILogger<FornecedorDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Fornecedor fornecedor, CancellationToken cancellationToken = default)
     {

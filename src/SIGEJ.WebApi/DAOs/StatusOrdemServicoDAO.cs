@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class StatusOrdemServicoDAO(Database database) : DataAccessObjectBase(database)
+public sealed class StatusOrdemServicoDAO(Database database, ILogger<StatusOrdemServicoDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(StatusOrdemServico status, CancellationToken cancellationToken = default)
     {

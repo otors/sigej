@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class SetorDAO(Database database) : DataAccessObjectBase(database)
+public sealed class SetorDAO(Database database, ILogger<SetorDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Setor setor, CancellationToken cancellationToken = default)
     {

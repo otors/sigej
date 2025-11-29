@@ -5,11 +5,8 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class TipoFuncionarioDAO(Database database) : DataAccessObjectBase(database)
+public sealed class TipoFuncionarioDAO(Database database, ILogger<TipoFuncionarioDAO> logger) : DataAccessObjectBase(database, logger)
 {
-    // public int Id { get; set; }
-    // public string Descricao { get; set; } = null!;
-
     public async Task<int> InsertAsync(TipoFuncionario tipoFuncionario, CancellationToken cancellationToken = default)
     {
         return await ExecuteReturningIdAsync("INSERT INTO tipo_funcionario (descricao) VALUES ($1) RETURNING id",

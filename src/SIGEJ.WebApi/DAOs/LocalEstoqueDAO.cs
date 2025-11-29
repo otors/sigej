@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class LocalEstoqueDAO(Database database) : DataAccessObjectBase(database)
+public class LocalEstoqueDAO(Database database, ILogger<LocalEstoqueDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(LocalEstoque local, CancellationToken cancellationToken = default)
     {

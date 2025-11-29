@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class FuncionarioDAO(Database database) : DataAccessObjectBase(database)
+public sealed class FuncionarioDAO(Database database, ILogger<FuncionarioDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Funcionario funcionario, CancellationToken cancellationToken = default)
     {

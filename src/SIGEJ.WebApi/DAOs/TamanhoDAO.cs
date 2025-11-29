@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class TamanhoDAO(Database database) : DataAccessObjectBase(database)
+public sealed class TamanhoDAO(Database database, ILogger<TamanhoDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(Tamanho tamanho, CancellationToken cancellationToken = default)
     {

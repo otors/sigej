@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public class UnidadeMedidaDAO(Database database) : DataAccessObjectBase(database)
+public sealed class UnidadeMedidaDAO(Database database, ILogger<UnidadeMedidaDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(UnidadeMedida unidade, CancellationToken cancellationToken = default)
     {

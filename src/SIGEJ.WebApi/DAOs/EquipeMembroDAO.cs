@@ -7,7 +7,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class EquipeMembroDAO(Database database) : DataAccessObjectBase(database)
+public sealed class EquipeMembroDAO(Database database, ILogger<EquipeMembroDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(EquipeMembro membro, CancellationToken cancellationToken = default)
     {

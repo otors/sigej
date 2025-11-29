@@ -6,7 +6,7 @@ using SIGEJ.WebApi.Models;
 
 namespace SIGEJ.WebApi.DAOs;
 
-public sealed class TipoMovimentoEstoqueDAO(Database database) : DataAccessObjectBase(database)
+public sealed class TipoMovimentoEstoqueDAO(Database database, ILogger<TipoMovimentoEstoqueDAO> logger) : DataAccessObjectBase(database, logger)
 {
     public async Task<int> InsertAsync(TipoMovimentoEstoque tipo, CancellationToken cancellationToken = default)
     {
